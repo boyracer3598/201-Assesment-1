@@ -53,4 +53,13 @@ public class MainMenu : MonoBehaviour
         settingsMenu.SetActive(true);
         mainMenu.SetActive(false);
     }
+    /// <summary>
+    /// goes back to the main menu
+    /// </summary>
+    public void backToMainMenu()
+    {
+        mainMenu.SetActive(true);
+        roomSelectMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+    }
 }
