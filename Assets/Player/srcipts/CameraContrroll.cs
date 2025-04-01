@@ -7,8 +7,11 @@ public class CameraContrroll : MonoBehaviour
     public CatControlls controls;
     InputAction look;
     [SerializeField] Transform player;
-    Vector3 offset;
-    [SerializeField] float camSpeed = 100f;
+    float offset;
+    [SerializeField] float cameraSpeedX, cameraSpeedY;
+    [SerializeField] float maxPitch, minPitch;
+    float yaw, pitch;
+    Vector3 cameraDir;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -27,14 +30,20 @@ public class CameraContrroll : MonoBehaviour
 
     void Start()
     {
-        
-        offset = transform.position - player.position;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        offset = transform.position.y - player.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = player.position + offset;
-        transform.Rotate(new Vector3(look.ReadValue<Vector2>().y, look.ReadValue<Vector2>().x, 0)*Time.deltaTime*camSpeed);
+        cameraDir = new Vector3(look.ReadValue<Vector2>().x, look.ReadValue<Vector2>().y, 0).normalized;
+        yaw += cameraDir.x * cameraSpeedX * Time.deltaTime;
+        pitch += cameraDir.y * cameraSpeedY * Time.deltaTime;
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+        transform.rotation = Quaternion.Euler(pitch, yaw, 0);
+        transform.position = player.transform.position + new Vector3(0, offset, 0);
+        
     }
 }
