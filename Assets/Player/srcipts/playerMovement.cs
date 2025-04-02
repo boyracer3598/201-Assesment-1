@@ -15,12 +15,17 @@ public class playerMovement : MonoBehaviour
     Vector3 rawdirection;
     float currentVelocity=0;
     [SerializeField] float jumpHeight = 5.0f;
+    [HideInInspector] public int toyCount = 0;
+    [HideInInspector] public int trashCount = 0;
+    public float powerupDuration = 5.0f;
+    [HideInInspector] public float powerupRemaining = 0.0f;
+
 
     //for gravity
     private float gravity = 9.8f;
     [SerializeField] float gravityMultiplier = 1.0f;
     private float verticalVelocity = 0.0f;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -52,8 +57,19 @@ public class playerMovement : MonoBehaviour
         moveCat();
         applyGravity();
         catJumps();
+        powerupTimer();
     }
 
+
+    private void powerupTimer() {
+        
+        if (powerupRemaining > 0.0f){
+            powerupRemaining -= Time.deltaTime;
+            //Debug.Log("Powerup remaining: " + (int)powerupRemaining);
+        }else{
+           powerupRemaining = 0.0f;
+        }
+    }
 
     private void catJumps(){
         if(catController.isGrounded && jump.ReadValue<float>() > 0.0f)
@@ -93,4 +109,24 @@ public class playerMovement : MonoBehaviour
 
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        //check if collecting a toy
+        if (other.tag == "toy"){
+            toyCount++;
+            Destroy(other.gameObject);
+        }
+        else if (other.tag == "powerup"){
+            powerupRemaining = powerupDuration;
+            Destroy(other.gameObject);
+        }else if(other.tag == "trash"){
+            trashCount++;
+            Debug.Log("wow Trash collected");
+            Destroy(other.gameObject);
+        }
+
+    }
+
 }
