@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class playerMovement : MonoBehaviour
 {
     public CatControlls controls;
+    [SerializeField] GameObject Crown;
     InputAction move;
     InputAction jump;
     CharacterController catController;
@@ -14,9 +15,15 @@ public class playerMovement : MonoBehaviour
     Transform cameraTransform;
     Vector3 rawdirection;
     float currentVelocity=0;
-    [SerializeField] float jumpHeight = 5.0f;
+    public bool isAllTrashCollected = false;
+
     [HideInInspector] public int toyCount = 0;
     [HideInInspector] public int trashCount = 0;
+
+    //for jump
+    [SerializeField] float jumpHeight;
+    [SerializeField] float jumpHeightDefult = 5.0f;
+    [SerializeField] float jumpHeightPowerup = 1.5f;
     public float powerupDuration = 5.0f;
     [HideInInspector] public float powerupRemaining = 0.0f;
 
@@ -30,8 +37,10 @@ public class playerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        jumpHeight = jumpHeightDefult;
         catController = GetComponent<CharacterController>();
         cameraTransform = FindFirstObjectByType<Camera>().transform;
+        Crown.SetActive(false);
     }
 
     private void Awake()
@@ -56,21 +65,38 @@ public class playerMovement : MonoBehaviour
     {
         moveCat();
         applyGravity();
-        catJumps();
         powerupTimer();
+        catJumps();
+        enableCrown();
+
+    }
+
+    private void enableCrown(){
+        if(isAllTrashCollected){
+            Crown.SetActive(true);
+        }
+       
     }
 
 
+    /// <summary>
+    /// function count down the powerup timer and applies the powerup effect
+    /// </summary>
     private void powerupTimer() {
         
         if (powerupRemaining > 0.0f){
             powerupRemaining -= Time.deltaTime;
+            jumpHeight = jumpHeightDefult * jumpHeightPowerup;
             //Debug.Log("Powerup remaining: " + (int)powerupRemaining);
-        }else{
-           powerupRemaining = 0.0f;
+        }
+        else{
+            powerupRemaining = 0.0f;
+            jumpHeight = jumpHeightDefult;
         }
     }
-
+    /// <summary>
+    /// funtion to maake the cat jump
+    /// </summary>
     private void catJumps(){
         if(catController.isGrounded && jump.ReadValue<float>() > 0.0f)
         {
