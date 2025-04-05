@@ -21,13 +21,19 @@ public class LevelUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)){
             if (PauseMenu.activeSelf){
+                //unpause game
                 PauseMenu.SetActive(false);
                 SettingsMenu.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 Time.timeScale = 1;
             }
             else{
+                //pasue game
                 PauseMenu.SetActive(true);
                 SettingsMenu.SetActive(false);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 Time.timeScale = 0;
             }
         }
