@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 610803d15227ef140a35c2ea36aa12da
+timeCreated: 1469222282
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67811
+  packageName: Voxel wooden funiture
+  packageVersion: 1.0
+  assetPath: Assets/wooden furnitures/Materials/closet2.mat
+  uploadId: 128559

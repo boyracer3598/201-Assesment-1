@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 64f5b88d0b32af14fb67f0e15b8fbc60
+timeCreated: 1469222348
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67811
+  packageName: Voxel wooden funiture
+  packageVersion: 1.0
+  assetPath: Assets/wooden furnitures/Materials/wall_mirror.mat
+  uploadId: 128559

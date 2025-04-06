@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b9ad64afe12eeab448e4517c4432519b
+timeCreated: 1469222321
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67811
+  packageName: Voxel wooden funiture
+  packageVersion: 1.0
+  assetPath: Assets/wooden furnitures/Materials/dining_table2.mat
+  uploadId: 128559

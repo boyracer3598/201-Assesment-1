@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,7 @@ public class playerMovement : MonoBehaviour
     Vector3 rawdirection;
     float currentVelocity=0;
     public bool isAllTrashCollected = false;
+    [SerializeField] float pushForce = 5.0f;
 
     [HideInInspector] public int toyCount = 0;
     [HideInInspector] public int trashCount = 0;
@@ -135,6 +137,23 @@ public class playerMovement : MonoBehaviour
 
         }
     }
+
+    /// <summary>
+    /// function to push objects when colliding with them
+    /// </summary>
+    /// <param name="hit"></param>
+    private void OnControllerColliderHit(ControllerColliderHit hit){
+        if (hit.rigidbody != null) {
+            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
+            forceDirection.y = 0;
+            forceDirection.Normalize();
+
+            hit.rigidbody.AddForce(forceDirection * pushForce, ForceMode.Impulse);
+        }
+        
+        
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

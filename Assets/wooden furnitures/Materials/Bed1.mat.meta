@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7201622dff87f4a4193fdd069f63b6ca
+timeCreated: 1469222104
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67811
+  packageName: Voxel wooden funiture
+  packageVersion: 1.0
+  assetPath: Assets/wooden furnitures/Materials/Bed1.mat
+  uploadId: 128559

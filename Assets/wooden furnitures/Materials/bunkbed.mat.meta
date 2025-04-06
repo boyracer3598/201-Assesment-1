@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2bbfdba732954a54eb5bc95d875185f0
+timeCreated: 1469222255
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67811
+  packageName: Voxel wooden funiture
+  packageVersion: 1.0
+  assetPath: Assets/wooden furnitures/Materials/bunkbed.mat
+  uploadId: 128559

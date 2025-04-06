@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 67b9888f1f09cdb49b96de11138c4a5e
+timeCreated: 1469222301
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67811
+  packageName: Voxel wooden funiture
+  packageVersion: 1.0
+  assetPath: Assets/wooden furnitures/Materials/cupboard1.mat
+  uploadId: 128559

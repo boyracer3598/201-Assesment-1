@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c74c4b00da5680246bd9f721cc55ee3b
+timeCreated: 1469222295
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67811
+  packageName: Voxel wooden funiture
+  packageVersion: 1.0
+  assetPath: Assets/wooden furnitures/Materials/crib.mat
+  uploadId: 128559
