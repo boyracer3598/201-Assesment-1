@@ -18,7 +18,10 @@ public class LevelContoller : MonoBehaviour
         numberOfTrash = GameObject.FindGameObjectsWithTag("trash").Length;
     }
 
-    
+    public int GetNumberOfToys()
+    {
+        return numberOfToys;
+    }
 
     // Update is called once per frame
     void Update()

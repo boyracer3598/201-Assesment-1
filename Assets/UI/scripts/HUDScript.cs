@@ -13,21 +13,24 @@ public class HUDScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI toyCountText;
     [SerializeField] TextMeshProUGUI powerUp;
     [SerializeField] Slider powerUpSlider;
+    LevelContoller LevelContoller;
     int maxToys;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        maxToys = LevelContoller.numberOfToys;
+        LevelContoller = FindFirstObjectByType<LevelContoller>();
+       
         player =FindFirstObjectByType<playerMovement>();
         powerUpSlider.maxValue = player.powerupDuration;
+        Debug.Log("Max Toys: " + maxToys);
         toyCountText.text = "Toys: " + player.toyCount+"/"+maxToys;
     }
 
     // Update is called once per frame
     void Update()
     {
+        maxToys = LevelContoller.GetNumberOfToys();
         toyCountText.text = "Toys: " + player.toyCount + "/"+maxToys;
         powerUpSlider.value = player.powerupRemaining;
     }
