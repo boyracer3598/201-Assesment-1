@@ -19,8 +19,14 @@ public class playerMovement : MonoBehaviour
     public bool isAllTrashCollected = false;
     [SerializeField] float pushForce = 5.0f;
 
-    [HideInInspector] public int toyCount = 0;
-    [HideInInspector] public int trashCount = 0;
+    public int toyCount = 0;
+    public int trashCount = 0;
+
+    //for animation
+    public bool isWalking = false;
+    public bool isJumping = false;
+    public bool isFalling = false;
+    float lastYPosition = 0.0f;
 
     //for jump
     [SerializeField] float jumpHeight;
@@ -42,6 +48,7 @@ public class playerMovement : MonoBehaviour
         jumpHeight = jumpHeightDefult;
         catController = GetComponent<CharacterController>();
         cameraTransform = FindFirstObjectByType<Camera>().transform;
+        isAllTrashCollected = false;
         Crown.SetActive(false);
     }
 
@@ -70,9 +77,12 @@ public class playerMovement : MonoBehaviour
         powerupTimer();
         catJumps();
         enableCrown();
-
+        CheckFalling();
     }
 
+    /// <summary>
+    /// function to enable the crown when all trash is collected
+    /// </summary>
     private void enableCrown(){
         if(isAllTrashCollected){
             Crown.SetActive(true);
@@ -89,7 +99,6 @@ public class playerMovement : MonoBehaviour
         if (powerupRemaining > 0.0f){
             powerupRemaining -= Time.deltaTime;
             jumpHeight = jumpHeightDefult * jumpHeightPowerup;
-            //Debug.Log("Powerup remaining: " + (int)powerupRemaining);
         }
         else{
             powerupRemaining = 0.0f;
@@ -103,22 +112,49 @@ public class playerMovement : MonoBehaviour
         if(catController.isGrounded && jump.ReadValue<float>() > 0.0f)
         {
             verticalVelocity = jumpHeight;
+            isJumping = true;
         }
     }
     /// <summary>
     /// applies gravity to the cat, as the chartcter controller does not have gravity by default
     /// </summary>
     private void applyGravity(){
-        if (catController.isGrounded&&verticalVelocity <0.0f){
+        if (catController.isGrounded && verticalVelocity < 0.0f){
             verticalVelocity = -1.0f;
-        }else{
+        }
+        else{
             verticalVelocity -= gravity * gravityMultiplier * Time.deltaTime;
         }
         catController.Move(new Vector3(0, verticalVelocity, 0) * Time.deltaTime);
 
+       
     }
 
 
+    private void CheckFalling()
+    {
+        float currentYPostion = transform.position.y;
+
+
+        if (currentYPostion < lastYPosition)
+        {
+            isFalling = true;
+            isJumping = false;
+        }
+        else if (currentYPostion > lastYPosition)
+        {
+            isJumping = true;
+            isFalling = false;
+
+        }
+        else if (currentYPostion == lastYPosition)
+        {
+            isJumping = false;
+            isFalling = false;
+
+        }
+        lastYPosition = currentYPostion;
+    }
     /// <summary>
     /// moves the cat, using the input from the player and dircetion for camera rotation
     /// </summary>
@@ -126,8 +162,8 @@ public class playerMovement : MonoBehaviour
     {
         rawdirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y).normalized;
 
-        if (rawdirection.magnitude > 0)
-        {
+        if (rawdirection.magnitude > 0){
+            isWalking = true;
             float TargetAngle = Mathf.Atan2(rawdirection.x, rawdirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
             float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, TargetAngle, ref currentVelocity, catRotationSpeed);
             Vector3 moveDir = Quaternion.Euler(0, smoothAngle, 0) * Vector3.forward;
@@ -135,6 +171,9 @@ public class playerMovement : MonoBehaviour
 
             catController.Move(moveDir * Time.deltaTime * catSpeed);
 
+        }
+        else {
+            isWalking = false;
         }
     }
 

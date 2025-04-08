@@ -20,17 +20,27 @@ public class HUDScript : MonoBehaviour
     void Start()
     {
         LevelContoller = FindFirstObjectByType<LevelContoller>();
-       
+        maxToys = LevelContoller.GetNumberOfToys();
         player =FindFirstObjectByType<playerMovement>();
         powerUpSlider.maxValue = player.powerupDuration;
         Debug.Log("Max Toys: " + maxToys);
         toyCountText.text = "Toys: " + player.toyCount+"/"+maxToys;
     }
 
+    private void OnEnable()
+    {
+        LevelContoller = FindFirstObjectByType<LevelContoller>();
+        maxToys = LevelContoller.GetNumberOfToys();
+        player = FindFirstObjectByType<playerMovement>();
+        powerUpSlider.maxValue = player.powerupDuration;
+        Debug.Log("Max Toys: " + maxToys);
+        toyCountText.text = "Toys: " + player.toyCount + "/" + maxToys;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        maxToys = LevelContoller.GetNumberOfToys();
+        
         toyCountText.text = "Toys: " + player.toyCount + "/"+maxToys;
         powerUpSlider.value = player.powerupRemaining;
     }

@@ -10,12 +10,14 @@ public class LevelContoller : MonoBehaviour
     public static int numberOfToys;//number toys in level
     public static int numberOfTrash;//number trash in level
     public playerMovement player;
+    public GameObject UI;
     // Start is called before the first frame update
     void Start()
     {
         player = FindFirstObjectByType<playerMovement>();
         numberOfToys = GameObject.FindGameObjectsWithTag("toy").Length;
         numberOfTrash = GameObject.FindGameObjectsWithTag("trash").Length;
+        UI.SetActive(true);
     }
 
     public int GetNumberOfToys()
