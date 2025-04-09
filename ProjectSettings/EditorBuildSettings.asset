@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/level 2(laundry).unity
     guid: e0a7eb6de47364445af4df084ed677b5
+  - enabled: 1
+    path: Assets/Levels/level 3(Kitchen).unity
+    guid: fdc3b3840266a0443b261b40ae9091e2
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
