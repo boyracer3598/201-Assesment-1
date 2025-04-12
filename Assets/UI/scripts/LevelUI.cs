@@ -11,14 +11,21 @@ public class LevelUI : MonoBehaviour
     [SerializeField] GameObject SettingsMenu;
     public CatControlls controls;
     InputAction Pause;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
+
         PauseMenu.SetActive(false);
         HUD.SetActive(true);
         SettingsMenu.SetActive(false);
         
     }
+
+  
+
 
     private void Awake()
     {

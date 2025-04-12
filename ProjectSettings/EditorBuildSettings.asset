@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/Level 4 (Living room).unity
     guid: c0f941deb47e0264f972d26b9bf1dd72
+  - enabled: 1
+    path: Assets/Levels/Won screen.unity
+    guid: e694e1763e9e7da45a2188d5ef2bfb37
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
