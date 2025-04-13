@@ -26,6 +26,7 @@ public class playerMovement : MonoBehaviour
     public bool isWalking = false;
     public bool isJumping = false;
     public bool isFalling = false;
+    public bool isIdle = false;
     float lastYPosition = 0.0f;
 
     //for jump
@@ -78,6 +79,15 @@ public class playerMovement : MonoBehaviour
         catJumps();
         enableCrown();
         CheckFalling();
+        idle();
+    }
+
+    private void idle() {
+        if(!isWalking && !isJumping && !isFalling){
+            isIdle = true;
+        }else{
+            isIdle = false;
+        }
     }
 
     /// <summary>

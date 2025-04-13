@@ -21,6 +21,7 @@ public class CatAnamations : MonoBehaviour
         if (player.isWalking)
         {
             charAmimator.SetBool("isWalking", true);
+            //play walk sound
         }
         else
         {
@@ -30,6 +31,7 @@ public class CatAnamations : MonoBehaviour
         if (player.isJumping)
         {
             charAmimator.SetBool("isJumping", true);
+            //play jump sound
         }
         else
         {
@@ -43,6 +45,15 @@ public class CatAnamations : MonoBehaviour
         else
         {
             charAmimator.SetBool("isFalling", false);
+        }
+
+        if (player.isIdle)
+        {
+            //play idle sound
+        }
+        else
+        {
+            //stop idle sound
         }
     }
 }
