@@ -23,6 +23,7 @@ public class MusicSettings : MonoBehaviour
 
     private void OnEnable()
     {
+        // Load the saved volume settings
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", musicVolume);
         sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", sfxVolume);
         masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", masterVolume);
@@ -35,13 +36,16 @@ public class MusicSettings : MonoBehaviour
         PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
     }
 
-
+    /// <summary>
+    /// change the volume of the music when the slider is moved
+    /// </summary>
     void Awake(){
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
         masterSlider.onValueChanged.AddListener(SetMasterVolume);
     }
 
+    // set the volume
     void SetMusicVolume(float volume)
     {
         audioMixer.SetFloat("MusicVolume", Mathf.Log10( volume)*20);

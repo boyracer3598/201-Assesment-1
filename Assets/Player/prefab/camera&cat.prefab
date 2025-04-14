@@ -186,6 +186,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6233541031210951596}
   m_SourcePrefab: {fileID: 100100000, guid: 6d4b6330686505d4faa9ea0f021ec2c0, type: 3}
+--- !u!82 &1043369941916334936 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8360342379514425573, guid: 6d4b6330686505d4faa9ea0f021ec2c0, type: 3}
+  m_PrefabInstance: {fileID: 8826822681172626365}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1475077206441511045 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7928493209504645944, guid: 6d4b6330686505d4faa9ea0f021ec2c0, type: 3}
@@ -257,14 +262,26 @@ MonoBehaviour:
   isWalking: 1
   isJumping: 0
   isFalling: 0
+  isIdle: 0
   jumpHeight: 7
   jumpHeightDefult: 7
   jumpHeightPowerup: 1.5
   powerupDuration: 5
   powerupRemaining: 0
+  jumpSound: {fileID: 0}
+  collectSound: {fileID: 0}
+  trashCollectSound: {fileID: 0}
+  powerupSound: {fileID: 0}
+  walkSound: {fileID: 1043369941916334936}
+  idleSound: {fileID: 6222666059141244826}
   gravityMultiplier: 2
 --- !u!1 &3810143386459250198 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5665375839820371371, guid: 6d4b6330686505d4faa9ea0f021ec2c0, type: 3}
+  m_PrefabInstance: {fileID: 8826822681172626365}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6222666059141244826 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3180796676614499367, guid: 6d4b6330686505d4faa9ea0f021ec2c0, type: 3}
   m_PrefabInstance: {fileID: 8826822681172626365}
   m_PrefabAsset: {fileID: 0}

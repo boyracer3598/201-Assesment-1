@@ -36,6 +36,17 @@ public class playerMovement : MonoBehaviour
     public float powerupDuration = 5.0f;
     [HideInInspector] public float powerupRemaining = 0.0f;
 
+    //for sound
+    AudioSource pickupSounds;
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip collectSound;
+    [SerializeField] AudioClip trashCollectSound;
+    [SerializeField] AudioClip powerupSound;
+
+
+    [SerializeField] AudioSource walkSound;
+    [SerializeField] AudioSource idleSound;
+
 
     //for gravity
     private float gravity = 9.8f;
@@ -46,12 +57,15 @@ public class playerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pickupSounds = GetComponent<AudioSource>();
         jumpHeight = jumpHeightDefult;
         catController = GetComponent<CharacterController>();
         cameraTransform = FindFirstObjectByType<Camera>().transform;
         isAllTrashCollected = false;
         Crown.SetActive(false);
     }
+
+ 
 
     private void Awake()
     {
@@ -80,15 +94,74 @@ public class playerMovement : MonoBehaviour
         enableCrown();
         CheckFalling();
         idle();
+        playAudio();
     }
 
+    /// <summary>
+    /// function to check if the cat is idle so when its sitting
+    /// </summary>
     private void idle() {
-        if(!isWalking && !isJumping && !isFalling){
+        if (!isWalking && !isJumping && !isFalling)
+        {
             isIdle = true;
-        }else{
-            isIdle = false;
+
+
+            //if (!catSounds.isPlaying || catSounds.clip != idleSound)
+            //{
+            //    catSounds.Stop();
+            //   catSounds.PlayOneShot(idleSound);
+            //}
+            //if (!catSounds.isPlaying)
+            //{
+            //    catSounds.PlayOneShot(idleSound);
+            //}
+
+            //else if (!catSounds.clip == idleSound)
+            //{
+            //    catSounds.Stop();
+            //    catSounds.PlayOneShot(idleSound);
+            //}
         }
+        else
+        {
+            isIdle = false;
+        }      
     }
+
+
+    /// <summary>
+    /// firgures out which sound to play
+    /// </summary>
+    void playAudio() {
+        if (isWalking){
+
+            if (!walkSound.isPlaying)
+            {
+                walkSound.Play();
+            }
+
+        }
+        else{
+            walkSound.Stop();
+        }
+
+        if (isIdle){
+            if (!idleSound.isPlaying){
+                idleSound.Play();
+            }
+        }
+        else{
+            idleSound.Stop();
+        }
+        //if (isIdle && catSounds.clip != idleSound)
+        //{
+        //    catSounds.Stop();
+        //    catSounds.PlayOneShot(idleSound);
+        //}
+
+
+    }
+
 
     /// <summary>
     /// function to enable the crown when all trash is collected
@@ -121,6 +194,7 @@ public class playerMovement : MonoBehaviour
     private void catJumps(){
         if(catController.isGrounded && jump.ReadValue<float>() > 0.0f)
         {
+            pickupSounds.PlayOneShot(jumpSound);
             verticalVelocity = jumpHeight;
             isJumping = true;
         }
@@ -173,6 +247,16 @@ public class playerMovement : MonoBehaviour
         rawdirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y).normalized;
 
         if (rawdirection.magnitude > 0){
+            //if ((!catSounds.isPlaying && !isJumping && !isFalling) || (catSounds.clip != walkSound && !isJumping && !isFalling))
+            //{
+            //    catSounds.Stop();
+            //    catSounds.PlayOneShot(walkSound);
+            //}
+            
+            //else if (!catSounds.clip == walkSound){
+            //    catSounds.Stop();
+            //    catSounds.PlayOneShot(walkSound);
+            //}
             isWalking = true;
             float TargetAngle = Mathf.Atan2(rawdirection.x, rawdirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
             float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, TargetAngle, ref currentVelocity, catRotationSpeed);
@@ -209,13 +293,16 @@ public class playerMovement : MonoBehaviour
 
         //check if collecting a toy
         if (other.tag == "toy"){
+            pickupSounds.PlayOneShot(collectSound);
             toyCount++;
             Destroy(other.gameObject);
         }
         else if (other.tag == "powerup"){
+            pickupSounds.PlayOneShot(powerupSound);
             powerupRemaining = powerupDuration;
             Destroy(other.gameObject);
         }else if(other.tag == "trash"){
+            pickupSounds.PlayOneShot(trashCollectSound);
             trashCount++;
             Debug.Log("wow Trash collected");
             Destroy(other.gameObject);
